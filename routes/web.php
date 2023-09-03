@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [CharacterController::class, 'index']);
+Route::get('/', [CharacterController::class, 'index'])->name('home');
 
 //---------------------------------------------Characters--------------------------------------------------
-Route::get('/characters/all', [CharacterController::class, 'allCharacters'])->name('characters.all');
+Route::get('/characters/', [CharacterController::class, 'allCharacters'])->name('characters.all');
 Route::get('/characters/{id}', [CharacterController::class, 'single'])->name('character.single');
 
 //---------------------------------------------------------------------------------------------------------

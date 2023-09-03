@@ -7,8 +7,10 @@ use Illuminate\Http\Response;
 
 class CharacterCollection extends ResourceCollection
 {
-    public function toResponse($request)
+    public function toArray($request)
     {
-        return (new Response(['data' => $this->collection]));
+        return $this->collection->map(function ($character) {
+            return new CharacterResource($character);
+        })->toArray();
     }
 }

@@ -26,8 +26,7 @@ class CharacterController extends Controller
     public function allCharacters()
     {
         $charactersData = $this->rickAndMortyService->getAllCharacters();
-        $characters = new CharacterCollection(collect($charactersData));
-        return new CharacterCollection(collect($characters));
+        return view('characters', ['characterCollection' => $charactersData['results'], 'info' => $charactersData['info']]);
 
     }
 
