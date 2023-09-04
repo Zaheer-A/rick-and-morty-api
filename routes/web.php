@@ -25,7 +25,7 @@ Route::get('/characters/', function () {
 
 Route::get('/characters/page/{page}', [CharacterController::class, 'charactersPerPage'])->name('characters.page');
 
-Route::get('/characters/{id}', [CharacterController::class, 'single'])->name('character.single');
+Route::get('/characters/{id}', [CharacterController::class, 'getSingleCharacter'])->name('character.single');
 
 //---------------------------------------------Locations--------------------------------------------------
 Route::group(['prefix' => '/location'], function () {

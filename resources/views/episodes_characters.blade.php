@@ -61,30 +61,6 @@
             </div>
         </div>
 
-{{--        <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px">--}}
-{{--            <p style="color: white; text-align: center">Characters: {{$info['count']}}</p>--}}
-{{--            <div style="display: inline-flex; align-items: flex-end; justify-content: space-between">--}}
-{{--                @if($next != 2)--}}
-{{--                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left self-center shrink-0 stroke-red-500 w-6 h-6 mx-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">--}}
-{{--                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>--}}
-{{--                        <path d="M5 12l14 0"></path>--}}
-{{--                        <path d="M5 12l6 6"></path>--}}
-{{--                        <path d="M5 12l6 -6"></path>--}}
-{{--                    </svg>--}}
-{{--                    <a href="{{route('characters.page', [$prev])}}" style="color: red; text-decoration: underline; font-weight: 200; margin-right: 20px;">Prev Page</a>--}}
-{{--                @endif--}}
-
-{{--                <a href="{{route('characters.page', [$next])}}" style="color: red; text-decoration: underline; font-weight: 200; margin-right: 2px">Next Page--}}
-{{--                </a>--}}
-{{--                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right self-center shrink-0 stroke-red-500 w-6 h-6 mx-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">--}}
-{{--                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>--}}
-{{--                    <path d="M5 12l14 0"></path>--}}
-{{--                    <path d="M13 18l6 -6"></path>--}}
-{{--                    <path d="M13 6l6 6"></path>--}}
-{{--                </svg>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
     </div>
 </div>
 </body>

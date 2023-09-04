@@ -22,12 +22,14 @@
             <h1 style="color: white; font-weight: 900; font-size: 5.625rem;">{{$character['name']}}</h1>
         </div>
         <div>
+            <a href="{{route('home')}}" class="flex justify-center" style="color: red; text-decoration: underline ;text-underline: red">home</a>
+            <br>
             <a href="{{url()->previous()}}" class="flex justify-center" style="color: red; text-decoration: underline ;text-underline: red">back</a>
         </div>
 
         <div class="mt-16">
             <div class="grid grid-cols-1 md:grid-cols-1 gap-10 lg:gap-8" style="display: flex; justify-content: center">
-                    <a href="https://laravel.com/docs" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
+                    <a href="{{route('home')}}" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
                         <div>
                             <div class="flex items-center justify-center squared-full" style="height: 200px; width: 200px">
                                 <img src="{{ $character['image'] }}" alt="{{$character['name']}}">
@@ -56,6 +58,30 @@
                         </div>
                     </a>
             </div>
+        </div>
+        <br>
+        <div class="grid grid-cols-2 md:grid-cols-2 gap-4 lg:gap-8">
+            @foreach($episodes as $episode)
+                <a href="{{route('episode.characters', [$episode['id']])}}" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
+                    <div>
+                        <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">{{$episode['name']}}</h2>
+                        <div class="row">
+                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-md leading-relaxed">
+                                Air Date:
+                                <span style="color: white;">{{$episode['air_date']}}</span>
+                            </p>
+                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-md leading-relaxed">
+                                Episode:
+                                <span style="color: white;">{{$episode['episode']}}</span>
+                            </p>
+                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-md leading-relaxed">
+                                Residents:
+                                <span style="color: white;">{{count($episode['characters'])}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
         </div>
 
     </div>

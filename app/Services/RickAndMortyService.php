@@ -9,12 +9,8 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class RickAndMortyService
 {
-    protected string $baseAPI = 'https://rickandmortyapi.com/api/';
 
-    public function getAllCharacters()
-    {
-        return $this->fetchInfo('character');
-    }
+    protected string $baseAPI = 'https://rickandmortyapi.com/api/';
 
     public function getCharacterById($id)
     {
@@ -26,9 +22,10 @@ class RickAndMortyService
         return $this->fetchInfo('character?page=' . $page);
     }
 
-    public function getAllLocations()
+    public function getEpisodesOfCharacter($characterId)
     {
-        return $this->fetchInfo('location');
+        $response =  $this->fetchInfo('character/'. $characterId);
+        return $response['episode'];
     }
 
     public function getLocationById($id)

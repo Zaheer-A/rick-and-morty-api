@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CharacterCollection;
 use App\Http\Resources\CharacterResource;
 use App\Services\RickAndMortyService;
+use Illuminate\Support\Facades\Cache;
 use function Laravel\Prompts\text;
 
 class CharacterController extends Controller
@@ -16,17 +17,9 @@ class CharacterController extends Controller
         $this->rickAndMortyService = $rickAndMortyService;
     }
 
-
     public function index()
     {
-
         return view('welcome');
-    }
-
-    public function allCharacters()
-    {
-        $charactersData = $this->rickAndMortyService->getAllCharacters();
-        return view('characters', ['characterCollection' => $charactersData['results'], 'info' => $charactersData['info']]);
     }
 
     public function charactersPerPage($page)
@@ -38,9 +31,20 @@ class CharacterController extends Controller
         return view('characters', ['characterCollection' => $charactersData['results'], 'info' => $charactersData['info'], 'prev' => $prevPage, 'next' => $nextPage]);
     }
 
-    public function single($id)
+    public function getSingleCharacter($id)
     {
         $character = $this->rickAndMortyService->getCharacterById($id);
-        return view('single', ['character' => $character]);
+        $episodes = Cache::remember('character_episodes_' . $id, 3, function () use ($id) {
+            $episodesURLs = $this->rickAndMortyService->getEpisodesOfCharacter($id);
+            $episodes = [];
+            foreach ($episodesURLs as $url)
+            {
+                $response = $this->rickAndMortyService->fetchAPI($url);
+                $episodes[] = $response;
+            }
+            return $episodes;
+        });
+
+        return view('single', ['character' => $character, 'episodes' => $episodes]);
     }
 }
