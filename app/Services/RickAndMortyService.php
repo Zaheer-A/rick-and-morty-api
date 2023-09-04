@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class RickAndMortyService
 {
@@ -45,6 +47,26 @@ class RickAndMortyService
         return $response['residents'];
     }
 
+    public function getEpisodeByID($id)
+    {
+        return $this->fetchInfo('episode/' . $id);
+    }
+
+    public function getEpisodePerPage($page)
+    {
+        return $this->fetchInfo('episode?page=' . $page);
+    }
+
+
+
+    public function getCharactersForEpisode($episodeId): array
+    {
+        $response = $this->fetchInfo('episode/' . $episodeId);
+        return $response['characters'];
+    }
+
+
+
     protected function fetchInfo($endpoint)
     {
         try {
@@ -53,8 +75,7 @@ class RickAndMortyService
 
             return $response->json();
         } catch (RequestException $e) {
-            //TODO: Handle request exception, e.g., log the error or return an error response.
-            return [];
+            return Response::HTTP_INTERNAL_SERVER_ERROR;
         }
     }
 
@@ -66,8 +87,7 @@ class RickAndMortyService
 
             return $response->json();
         } catch (RequestException $e) {
-            //TODO: Handle request exception, e.g., log the error or return an error response.
-            return [];
+            return Response::HTTP_INTERNAL_SERVER_ERROR;
         }
     }
 

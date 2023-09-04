@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Locations</title>
+    <title>Characters</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -19,32 +19,41 @@
 <div class="relative md:flex md:justify-center md:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
     <div class="max-w-7xl mx-auto p-6 lg:p-8">
         <div class="flex justify-center">
-            <h1 style="color: white; font-weight: 900; font-size: 5.625rem;">Locations</h1>
+            <h1 style="color: white; font-weight: 900; font-size: 5.625rem;">{{$episode['name']}}</h1>
         </div>
-
         <div>
-            <a href="{{route('home')}}" class="flex justify-center" style="color: red; text-decoration: underline ;text-underline: red">back</a>
+            <a href="{{url()->previous()}}" class="flex justify-center" style="color: red; text-decoration: underline ;text-underline: red">back</a>
         </div>
 
         <div class="mt-16">
             <div class="grid grid-cols-2 md:grid-cols-2 gap-4 lg:gap-8">
-                @foreach($locations as $location)
-                    <a href="{{route('location.residents', [$location['id']])}}" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
+                @foreach($characterCollection as $character)
+                    <a href="{{route('character.single', [$character['id']])}}" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
                         <div>
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">{{$location['name']}}</h2>
+                            <div class="flex items-center justify-center squared-full" style="height: 100px; width: 100px">
+                                <img src="{{ $character['image'] }}" alt="{{$character['name']}}">
+                            </div>
+                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">{{$character['name']}}</h2>
+                            <div style="margin: -10px">
+                                @if ($character['status'] === 'Alive')
+                                    <span style="color: green; font-size: 1.5em">&bull;</span> <span style="color: white;">Alive - {{$character['species']}} - {{$character['gender']}}</span>
+                                @elseif ($character['status'] === 'Dead')
+                                    <span style="color: red; font-size: 1.5em">&bull;</span> <span style="color: white;">Dead - {{$character['species']}} - {{$character['gender']}}</span>
+                                @else
+                                    <span style="color: purple; font-size: 1.5em">&bull;</span> <span style="color: white;">Unknown - {{$character['species']}} - {{$character['gender']}}</span>
+                                @endif
+                            </div>
+
                             <div class="row">
                                 <p class="mt-4 text-gray-500 dark:text-gray-400 text-md leading-relaxed">
-                                    Type:
-                                    <span style="color: white;">{{$location['type']}}</span>
+                                    Last Known Location:
                                 </p>
+                                <span style="color: white;">{{$character['location']['name']}}</span>
+
                                 <p class="mt-4 text-gray-500 dark:text-gray-400 text-md leading-relaxed">
-                                    Dimension:
-                                    <span style="color: white;">{{$location['dimension']}}</span>
+                                    Origin:
                                 </p>
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-md leading-relaxed">
-                                    Residents:
-                                    <span style="color: white;">{{count($location['residents'])}}</span>
-                                </p>
+                                <span style="color: white;">{{$character['origin']['name']}}</span>
                             </div>
                         </div>
                     </a>
@@ -52,29 +61,29 @@
             </div>
         </div>
 
-        <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px">
-            <p style="color: white; text-align: center">Locations: {{count($locations)}}</p>
-            <div style="display: inline-flex; align-items: flex-end; justify-content: space-between">
-                @if($nextPage != 2)
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left self-center shrink-0 stroke-red-500 w-6 h-6 mx-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M5 12l14 0"></path>
-                        <path d="M5 12l6 6"></path>
-                        <path d="M5 12l6 -6"></path>
-                    </svg>
-                    <a href="{{route('location.page', [$prevPage])}}" style="color: red; text-decoration: underline; font-weight: 200; margin-right: 20px;">Prev Page</a>
-                @endif
+{{--        <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px">--}}
+{{--            <p style="color: white; text-align: center">Characters: {{$info['count']}}</p>--}}
+{{--            <div style="display: inline-flex; align-items: flex-end; justify-content: space-between">--}}
+{{--                @if($next != 2)--}}
+{{--                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left self-center shrink-0 stroke-red-500 w-6 h-6 mx-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">--}}
+{{--                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>--}}
+{{--                        <path d="M5 12l14 0"></path>--}}
+{{--                        <path d="M5 12l6 6"></path>--}}
+{{--                        <path d="M5 12l6 -6"></path>--}}
+{{--                    </svg>--}}
+{{--                    <a href="{{route('characters.page', [$prev])}}" style="color: red; text-decoration: underline; font-weight: 200; margin-right: 20px;">Prev Page</a>--}}
+{{--                @endif--}}
 
-                <a href="{{route('location.page', [$nextPage])}}" style="color: red; text-decoration: underline; font-weight: 200; margin-right: 2px">Next Page
-                </a>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right self-center shrink-0 stroke-red-500 w-6 h-6 mx-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M5 12l14 0"></path>
-                    <path d="M13 18l6 -6"></path>
-                    <path d="M13 6l6 6"></path>
-                </svg>
-            </div>
-        </div>
+{{--                <a href="{{route('characters.page', [$next])}}" style="color: red; text-decoration: underline; font-weight: 200; margin-right: 2px">Next Page--}}
+{{--                </a>--}}
+{{--                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right self-center shrink-0 stroke-red-500 w-6 h-6 mx-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">--}}
+{{--                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>--}}
+{{--                    <path d="M5 12l14 0"></path>--}}
+{{--                    <path d="M13 18l6 -6"></path>--}}
+{{--                    <path d="M13 6l6 6"></path>--}}
+{{--                </svg>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
     </div>
 </div>
@@ -84,14 +93,3 @@
 @section('styles')
     <link rel="stylesheet" href="{{asset('css/styles.css')}}">
 @stop
-
-<style>
-    ul {
-        -webkit-column-count: 3;
-        -moz-column-count: 3;
-        column-count: 3;
-        text-decoration: underline red;
-        font-size: 50px;
-        color: white;
-    }
-</style>

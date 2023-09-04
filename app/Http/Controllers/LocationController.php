@@ -40,6 +40,6 @@ class LocationController extends Controller
             $characters[] = $response;
         }
 
-        return view('residents', ['characters' => $characters, 'locationName' => $location['name']]);
+        return view('residents', ['characters' => $characters, 'location' => $location]);
     }
 }

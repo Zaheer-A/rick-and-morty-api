@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\LocationController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,12 +27,6 @@ Route::get('/characters/page/{page}', [CharacterController::class, 'charactersPe
 
 Route::get('/characters/{id}', [CharacterController::class, 'single'])->name('character.single');
 
-//---------------------------------------------------------------------------------------------------------
-
-//---------------------------------------------Dimensions--------------------------------------------------
-
-//---------------------------------------------------------------------------------------------------------
-
 //---------------------------------------------Locations--------------------------------------------------
 Route::group(['prefix' => '/location'], function () {
     Route::get('/', function () {
@@ -41,9 +36,17 @@ Route::group(['prefix' => '/location'], function () {
     Route::get('/{id}/residents', [LocationController::class, 'residents'])->name('location.residents');
 });
 
-//---------------------------------------------------------------------------------------------------------
-
 //---------------------------------------------Episodes--------------------------------------------------
+
+Route::group(['prefix' => '/episode'], function () {
+    Route::get('/', function() {
+        return redirect('/episode/page/1');
+    })->name('episodes.all');
+
+    Route::get('/page/{page}', [EpisodeController::class, 'getEpisodesPerPage'])->name('episode.page');
+
+    Route::get('/{id}/characters', [EpisodeController::class, 'getCharacters'])->name('episode.characters');
+});
 
 //---------------------------------------------------------------------------------------------------------
 

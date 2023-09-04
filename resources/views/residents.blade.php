@@ -19,8 +19,9 @@
 <div class="relative md:flex md:justify-center md:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
     <div class="max-w-7xl mx-auto p-6 lg:p-8">
         <div class="flex justify-center">
-            <h1 style="color: white; font-weight: 900; font-size: 5.625rem;">{{$locationName}}</h1>
+            <h1 style="color: white; font-weight: 900; font-size: 5.625rem;">{{$location['name']}}</h1>
         </div>
+
         <div>
             <a href="{{route('home')}}" class="flex justify-center" style="color: red; text-decoration: underline ;text-underline: red">home</a>
             <br>
