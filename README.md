@@ -20,7 +20,6 @@ Using an API to retrive different kinds of information to showcase my skills as 
 - PHP 8.1.19
 - Laravel 10.21.0
 - MySQL
-- Ajax
 - Blade
 
 ### Links
