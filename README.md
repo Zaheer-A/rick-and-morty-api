@@ -21,6 +21,30 @@ Using an API to retrive different kinds of information to showcase my skills as 
 - Laravel 10.21.0
 - Blade
 
+# Visuals of project
+
+## The Home Page
+![img.png](git_images/img.png)
+
+## View All Characters
+You can view all the characters of the show, 20 are shown per page. You can easily navigate between pages from the buttons at the bottom.
+![img_1.png](git_images/img_1.png)
+![img_3.png](git_images/img_3.png)
+
+## Single Character
+For each character you can view all the episodes they have been in. Clicking on an episode opens a list of the co-stars of the episode. 
+![img_2.png](git_images/img_2.png)
+
+## View All Locations
+For each location see who else is present there. 
+![img.png](git_images/img_4.png)
+![img.png](git_images/img_5.png)
+
+
+## View all Episdoes
+See all the episodes of the show with details for each one. Clicking on an episode open all the characters that appear. 
+![img.png](git_images/img_6.png)
+
 ### Links
 
 - **[Rick and Morty API](https://rickandmortyapi.com/)**
