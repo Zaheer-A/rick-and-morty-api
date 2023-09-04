@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\LocationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [CharacterController::class, 'index'])->name('home');
 
 //---------------------------------------------Characters--------------------------------------------------
-Route::get('/characters/', [CharacterController::class, 'allCharacters'])->name('characters.all');
+Route::get('/characters/', function () {
+    return redirect('/characters/page/1');
+})->name('characters.all');
+
+Route::get('/characters/page/{page}', [CharacterController::class, 'charactersPerPage'])->name('characters.page');
+
 Route::get('/characters/{id}', [CharacterController::class, 'single'])->name('character.single');
 
 //---------------------------------------------------------------------------------------------------------
@@ -27,6 +33,13 @@ Route::get('/characters/{id}', [CharacterController::class, 'single'])->name('ch
 //---------------------------------------------------------------------------------------------------------
 
 //---------------------------------------------Locations--------------------------------------------------
+Route::group(['prefix' => '/location'], function () {
+    Route::get('/', function () {
+        return redirect('/location/page/1');
+    })->name('location.all');
+    Route::get('/page/{page}', [LocationController::class, 'locationPerPage'])->name('location.page');
+    Route::get('/{id}/residents', [LocationController::class, 'residents'])->name('location.residents');
+});
 
 //---------------------------------------------------------------------------------------------------------
 

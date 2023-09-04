@@ -27,12 +27,20 @@ class CharacterController extends Controller
     {
         $charactersData = $this->rickAndMortyService->getAllCharacters();
         return view('characters', ['characterCollection' => $charactersData['results'], 'info' => $charactersData['info']]);
+    }
 
+    public function charactersPerPage($page)
+    {
+        $charactersData = $this->rickAndMortyService->getCharactersByPage($page);
+        $maxPages = $charactersData['info']['pages'];
+        $prevPage = ($page == 1) ? 1 : $page - 1;
+        $nextPage = ($page == $maxPages) ?  1 : $page + 1;
+        return view('characters', ['characterCollection' => $charactersData['results'], 'info' => $charactersData['info'], 'prev' => $prevPage, 'next' => $nextPage]);
     }
 
     public function single($id)
     {
         $character = $this->rickAndMortyService->getCharacterById($id);
-        return $character;
+        return view('single', ['character' => $character]);
     }
 }
